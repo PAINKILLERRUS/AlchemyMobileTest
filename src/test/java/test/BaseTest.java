@@ -22,7 +22,7 @@ public class BaseTest {
                 .setPlatformVersion("11")
                 .setDeviceName("Pixel 3a")
                 .setAppPackage("com.ilyin.alchemy")
-                .setAppActivity("com.ilyin.app_google_core.GoogleAppActivity t36")
+                .setAppActivity("com.ilyin.app_google_core.GoogleAppActivity")
                 .setNoReset(false)
                 .setFullReset(false);
 

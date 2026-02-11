@@ -2,12 +2,12 @@ package POM;
 
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.appium.AppiumSelectors;
+import com.codeborne.selenide.appium.SelenideAppiumCollection;
 import com.codeborne.selenide.appium.SelenideAppiumElement;
 import io.appium.java_client.AppiumBy;
 import lombok.Getter;
 
-import static com.codeborne.selenide.appium.SelenideAppium.$;
-import static com.codeborne.selenide.appium.SelenideAppium.$x;
+import static com.codeborne.selenide.appium.SelenideAppium.*;
 
 @Getter
 public class AlchemyGamingPage {
@@ -17,7 +17,7 @@ public class AlchemyGamingPage {
 
     //You hints
     private final SelenideElement watchButton = $x("//android.widget.TextView[@text='For watching ads']/..//android.view.View[@clickable='true']");
-    private final SelenideElement numberOfHintsDisplay = $(AppiumSelectors.byAttribute("class", "android.widget.TextView"));
+    private final SelenideAppiumCollection numberOfHintsDisplay = $$(AppiumSelectors.byAttribute("class", "android.widget.TextView"));
     private final SelenideElement youHintsHeader = $x("//android.widget.TextView[@text='Your hints']");
 
 }

@@ -2,7 +2,9 @@ package steps;
 
 import POM.AlchemyGamingPage;
 import POM.AlchemyMainPage;
-import POM.HintScreenPage;
+import com.codeborne.selenide.WebDriverRunner;
+import helpers.AdHandler;
+import io.appium.java_client.android.AndroidDriver;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
@@ -14,18 +16,25 @@ public class AlchemyPageSteps {
 
     private final AlchemyMainPage page = new AlchemyMainPage();
     private final AlchemyGamingPage gamingPage = new AlchemyGamingPage();
-    private final HintScreenPage hintPage = new HintScreenPage();
 
     @Step("Возможность добавления подсказок")
     public void possibilityOfAddingHints() {
         page.getPlayButton().shouldBe(visible).click();
         gamingPage.getAddedHintsButton().shouldBe(visible).shouldBe(enabled, Duration.ofSeconds(10)).click();
-        gamingPage.getYouHintsHeader().shouldBe(visible, Duration.ofSeconds(15));
+        gamingPage.getYouHintsHeader().shouldBe(visible, Duration.ofSeconds(5));
         gamingPage.getWatchButton().shouldBe(visible).shouldBe(enabled, Duration.ofSeconds(30)).click();
-
-
-        String hintsCount = gamingPage.getNumberOfHintsDisplay().getText();
+        AdHandler.handleAdAfterWatch();
+        waitForGameScreen();
+        String hintsCount = gamingPage.getNumberOfHintsDisplay().get(1).shouldBe(visible, Duration.ofSeconds(5)).getText();
         assertEquals("4", hintsCount);
+    }
+
+    private void waitForGameScreen() {
+        // Явно переключаемся в NATIVE_APP (на всякий случай)
+        AndroidDriver driver = (AndroidDriver) WebDriverRunner.getWebDriver();
+        driver.context("NATIVE_APP");
+        // Ждём появления заголовка "Your hints" с увеличенным таймаутом
+        gamingPage.getYouHintsHeader().shouldBe(visible, Duration.ofSeconds(20));
     }
 
 
@@ -41,6 +50,4 @@ public class AlchemyPageSteps {
         String text = gamingPage.getDailyThanksHeader().shouldBe(visible).getText();
         assertEquals("Daily Tasks", text);
     }
-
-
 }

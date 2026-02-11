@@ -1,9 +1,6 @@
 package test;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,6 +14,7 @@ public class AlchemyTests extends BaseTest {
 
 
     @Test
+    @Flaky()
     @Tag("Positive")
     @Owner("Иван Антипов")
     @Story("Проверка возможности добавление подсказок")
